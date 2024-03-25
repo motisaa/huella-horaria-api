@@ -29,7 +29,7 @@ var options = {
     colorize: false,
   },
   console: {
-    level: process.env.ARIFACE2_WINSTON_CONSOLELEVEL || 'debug',
+    level: process.env.WINSTON_CONSOLELEVEL || 'debug',
     handleExceptions: true,
     json: false,
     colorize: true,
