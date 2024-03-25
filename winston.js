@@ -4,6 +4,7 @@ import appRoot from 'app-root-path';
 import { createLogger, transports as _transports } from 'winston';
 import { config } from 'dotenv';
 
+//Esta función carga las variables de entorno definidas en el archivo .env
 config();
 
 // define the custom settings for each transport (file, console)
@@ -17,12 +18,11 @@ var options = {
     Limitamos el tamaño del fichero a 5MB.
     */
     maxsize: 5242880, // 5MB
-     /* 
-      ¿Pero qué pasa cuando se llena? 
+     /* ¿Pero qué pasa cuando se llena? 
        Pues de ese tema se encarga la siguiente opción.
-       Por tener ese valor en 5, lo que hará winston es crear un nuevo archivo y 
+       Por tener ese valor en 5, lo que hará winston es crear un nuevo archivo y
        si se llena otro más. hasta un máximo de 5, cuando se llega a 5
-       se machaca el log más antiguo. Luego por mucho que grabe winston.info 
+       se machaca el log más antiguo. Luego por mucho que grabe winston.info
        nos superará los 5 x 5MB = 25MB.
      */
     maxFiles: 5,

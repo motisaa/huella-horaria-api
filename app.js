@@ -1,14 +1,18 @@
 "use strict";
 import express from 'express'; // Importa el framework Express.js
+import cors from 'cors';
 import bodyParser from 'body-parser'; // Importa el middleware Body Parser
 import winston from './winston.js'; // Importa el módulo Winston
 const app = express(); // Initialize express application
+import empresasRouter from './api/empresas/empresas_controlador.js';
 
 const appServer = {
     createServer: () => {
         winston.info('crear servidor');
+        app.use(cors());
+        app.use('/empresas', empresasRouter);
         /*
-        La opción extended se establece en false, lo que significa que 
+        La opción extended se establece en false, lo que significa que
         solo se analizarán los datos que no estén en forma de objeto o matriz.
         Esto es útil cuando solo se espera recibir datos simples de formulario.
         */
