@@ -5,12 +5,12 @@ import bodyParser from 'body-parser'; // Importa el middleware Body Parser
 import winston from './winston.js'; // Importa el módulo Winston
 const app = express(); // Initialize express application
 import empresasRouter from './api/empresas/empresas_controlador.js';
+import adminsRouter from './api/administradores/administradores_controlador.js'
 
 const appServer = {
     createServer: () => {
         winston.info('crear servidor');
         app.use(cors());
-        app.use('/v1/empresas', empresasRouter);
         /*
         La opción extended se establece en false, lo que significa que
         solo se analizarán los datos que no estén en forma de objeto o matriz.
@@ -20,6 +20,11 @@ const appServer = {
         app.use(bodyParser.urlencoded({extended: false}));
         // Middleware para analizar cuerpos de solicitudes JSON
         app.use(bodyParser.json());
+        
+        // fixed: las rutas de api tienen que ir después de bodyParser
+        app.use('/v1/empresas', empresasRouter);
+        app.use('v1/administradores', adminsRouter);
+
         // Middleware para manejar errores
         app.use((error, req, res, next) => {
             res.status(error.status || 500);
