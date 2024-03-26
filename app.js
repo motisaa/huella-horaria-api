@@ -7,6 +7,7 @@ const app = express(); // Initialize express application
 import empresasRouter from './api/empresas/empresas_controlador.js';
 import adminsRouter from './api/administradores/administradores_controlador.js'
 import trabajadoresRouter from './api/trabajadores/trabajadores_controlador.js';
+import fichajesRouter from './api/fichajes/fichajes_controlador.js';
 
 const appServer = {
     createServer: () => {
@@ -26,6 +27,7 @@ const appServer = {
         app.use('/v1/empresas', empresasRouter);
         app.use('/v1/administradores', adminsRouter);
         app.use('/v1/trabajadores', trabajadoresRouter);
+        app.use('/v1/fichajes', fichajesRouter);
 
         // Middleware para manejar errores
         app.use((error, res) => {
