@@ -11,7 +11,7 @@ let reglasTrabajador = [
     // verifica si email de trabajador no está vacío y es un email
     body('usuario').notEmpty(),
     body('password').notEmpty(),
-    body('email').notEmpty().isEmail
+    body('email').notEmpty().isEmail()
 ]
 let reglasTrabajadorId = [
     param('id').notEmpty()
