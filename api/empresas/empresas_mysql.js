@@ -11,7 +11,7 @@ const empresasMysql = {
             // Ejecución de inserción a la base de datos
             const [resp] = await conn.query('INSERT INTO empresas SET ?', empresa)
             await conn.end()
-            /* Asigna el if generado automáticamente por la base de datos
+            /* Asigna el id generado automáticamente por la base de datos
              a la propiedad empresaId del objeto empresa */
             empresa.empresaId = resp.insertId
             return empresa
