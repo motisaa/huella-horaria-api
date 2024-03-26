@@ -51,22 +51,22 @@ const administradoresMysql = {
     },
     // Función para actualizar un admin en la base de datos
     putAdminsMsql: async(admin) => {
-        let conn = undefined
+        let conn = undefined;
         try {
-            let cfg = mysqlConnection.obtenerConexion()
-            conn = await mysql.createConnection(cfg)
+            let cfg = mysqlConnection.obtenerConexion();
+            conn = await mysql.createConnection(cfg);
             let sql = `UPDATE administradores SET ? WHERE adminId = ?`
             // Ejecución de la consulta SQL
             const [resp] = await conn.query(sql, [admin, admin.adminId])
-            await conn.end()
-            return resp
+            await conn.end();
+            return resp;
         } catch (error) {
-            if (conn) await conn.end()
+            if (conn) await conn.end();
             throw(error)
         }
     },
     //  Función para eliminar un admin de la base de datos
-    deleteEmpresaById: async(adminId) => {
+    deleteAdminById: async(adminId) => {
         let conn = undefined
         try {
             let cfg = mysqlConnection.obtenerConexion()

@@ -9,16 +9,16 @@ let reglasAdmin = [
     body('nombre').notEmpty(),
     body('apellido1').notEmpty(),
     // verifica si email de admin no está vacío y es un email de verdad 
-    body('email').notEmpty().isEmail,
     body('usuario').notEmpty(),
     body('password').notEmpty(),
+    body('email').notEmpty().isEmail
 ]
 let reglasAdminId = [
     param('id').notEmpty()
 ]
 
 let reglasAdminPut = [
-    body('adminId').notEmpty(),
+    body('adminId').notEmpty()
 ]
 
 //usamos async para poder usar en su interior instrucciones tipo wait.
@@ -60,7 +60,7 @@ router.get('/:id', reglasAdminId, async (req, res, next) => {
             res.status(400).send({ errors: result.array() })
             return
         }
-        let admin = await adminsMysql.getAdminById(req.params.id);
+        let admin = await administradoresMysql.getAdminById(req.params.id);
         if (admin.length == 0) {
             // No hay admin
             res.status(404).send(`La admin con id ${req.params.id} no exixte en la base de datos`)
@@ -81,7 +81,7 @@ router.put('/', reglasAdminPut, async (req, res, next) => {
         }
         let admin = req.body;
         // Actualiza el admin en la base de datos
-        await adminsMysql.putAdminsMsql(admin)
+        await administradoresMysql.putAdminsMsql(admin)
         res.json(admin); // Devuelve el admin actualizada
     } catch (error) {
         next(error)
@@ -98,7 +98,7 @@ router.delete('/:id', reglasAdminId, async (req, res, next) => {
             return
         }
         // Elimina un admin por su id
-        let admin = await adminsMysql.deleteAdminById(req.params.id);
+        let admin = await administradoresMysql.deleteAdminById(req.params.id);
         res.json(admin); // Devuelve el admin eliminada
     } catch (error) {
         next(error)
