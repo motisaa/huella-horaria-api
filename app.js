@@ -6,6 +6,7 @@ import winston from './winston.js'; // Importa el módulo Winston
 const app = express(); // Initialize express application
 import empresasRouter from './api/empresas/empresas_controlador.js';
 import adminsRouter from './api/administradores/administradores_controlador.js'
+import trabajadoresRouter from './api/trabajadores/trabajadores_controlador.js';
 
 const appServer = {
     createServer: () => {
@@ -24,6 +25,7 @@ const appServer = {
         // fixed: las rutas de api tienen que ir después de bodyParser
         app.use('/v1/empresas', empresasRouter);
         app.use('/v1/administradores', adminsRouter);
+        app.use('/v1/trabajadores', trabajadoresRouter);
 
         // Middleware para manejar errores
         app.use((error, res) => {
