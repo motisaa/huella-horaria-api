@@ -91,7 +91,7 @@ router.delete('/:id', reglasEmpresaId, async (req, res, next) => {
             res.status(400).send({ errors: result.array() })
             return
         }
-        // Elimina una empresa por su if
+        // Elimina una empresa por su id
         let empresa = await empresasMysql.deleteEmpresaById(req.params.id);
         res.json(empresa); // Devuelve la empresa eliminada
     } catch (error) {
