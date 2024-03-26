@@ -10,7 +10,7 @@ const appServer = {
     createServer: () => {
         winston.info('crear servidor');
         app.use(cors());
-        app.use('/empresas', empresasRouter);
+        app.use('/v1/empresas', empresasRouter);
         /*
         La opción extended se establece en false, lo que significa que
         solo se analizarán los datos que no estén en forma de objeto o matriz.
