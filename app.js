@@ -23,10 +23,10 @@ const appServer = {
         
         // fixed: las rutas de api tienen que ir después de bodyParser
         app.use('/v1/empresas', empresasRouter);
-        app.use('v1/administradores', adminsRouter);
+        app.use('/v1/administradores', adminsRouter);
 
         // Middleware para manejar errores
-        app.use((error, req, res, next) => {
+        app.use((error, res) => {
             res.status(error.status || 500);
             res.json({
                 error: {
