@@ -73,7 +73,7 @@ router.put('/', reglaFichajePut, async (req, res, next) => {
         }
         let fichaje = req.body;
         // Actualiza el fichaje en la base de datos
-        await fichajesMysql.putFichajesMsql(fichaje)
+        await fichajesMysql.putFichajeMsql(fichaje)
         res.json(fichaje); // Devuelve el fichaje actualizada
     } catch (error) {
         next(error)
