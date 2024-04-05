@@ -8,9 +8,9 @@ let reglasTrabajador = [
     // El nombre de trabajador no debe estar vacío
     body('nombre').notEmpty(),
     body('apellido1').notEmpty(),
-    // verifica si email de trabajador no está vacío y es un email
     body('usuario').notEmpty(),
     body('password').notEmpty(),
+    // verifica si email de trabajador no está vacío y es un email
     body('email').notEmpty().isEmail()
 ]
 let reglasTrabajadorId = [
