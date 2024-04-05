@@ -8,11 +8,8 @@ import empresasRouter from './api/empresas/empresas_controlador.js';
 import adminsRouter from './api/administradores/administradores_controlador.js'
 import trabajadoresRouter from './api/trabajadores/trabajadores_controlador.js';
 import fichajesRouter from './api/fichajes/fichajes_controlador.js';
-<<<<<<< HEAD
 import gruposRouter from './api/groups/groups_controlador.js';
-=======
 import vesionRouter from './api/version/version_controlador.js';
->>>>>>> 97f36db365ba7025022a3772708c26c1aa70ef10
 
 const appServer = {
     createServer: () => {
