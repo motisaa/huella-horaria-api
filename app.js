@@ -8,8 +8,8 @@ import empresasRouter from './api/empresas/empresas_controlador.js';
 import adminsRouter from './api/administradores/administradores_controlador.js'
 import trabajadoresRouter from './api/trabajadores/trabajadores_controlador.js';
 import fichajesRouter from './api/fichajes/fichajes_controlador.js';
-import gruposRouter from './api/groups/groups_controlador.js';
-import vesionRouter from './api/version/version_controlador.js';
+import gruposRouter from './api/grupos/grupos_controlador.js';
+import versionRouter from './api/version/version_controlador.js';
 
 const appServer = {
     createServer: () => {
@@ -30,7 +30,7 @@ const appServer = {
         app.use('/v1/administradores', adminsRouter);
         app.use('/v1/trabajadores', trabajadoresRouter);
         app.use('/v1/fichajes', fichajesRouter);
-        app.use('/v1/version', vesionRouter);
+        app.use('/v1/version', versionRouter);
         //adding router of group
         app.use('/v1/grupos_trabajadores', gruposRouter);
 
