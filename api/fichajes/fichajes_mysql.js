@@ -21,7 +21,7 @@ const fichajesMysql = {
         }
     },
     // Función para obtener todos los fichajes de la base de datos
-    getFichajeMsql: async () => {
+    getFichajesMsql: async () => {
         let conn = undefined
         try {
             let cfg = mysqlConnection.obtenerConexion()
