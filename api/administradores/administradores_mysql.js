@@ -80,6 +80,27 @@ const administradoresMysql = {
             throw (error)
         }
     },
+
+
+    // postLogin: función asincrónica para autenticar un usuario administrador
+    postLogin: async (usuario, password) => {
+        let conn = undefined; // Conexión a la base de datos
+        try {
+            let cfg = mysqlConnection.obtenerConexion(); // Obtiene la configuración de conexión
+            conn = await mysql.createConnection(cfg); // Crea la conexión
+            let sql = "SELECT * FROM administradores WHERE usuario = ? AND password = ?";
+            const [resp] = await conn.query(sql, [usuario, password]); // Ejecuta la consulta
+            if (resp.length == 0) return null; // Si el administrador no existe, devuelve nulo
+            let admin = resp[0]; // Obtiene el primer resultado
+            await conn.end(); // Cierra la conexión
+            return admin; // Devuelve los datos del administrador
+        } catch (error) {
+            if (conn) await conn.end(); // Si hay una conexión, la cierra
+            throw (error); // Lanza el error
+        }
+    },
+
+
 }
 
 
