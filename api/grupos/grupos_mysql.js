@@ -39,7 +39,7 @@ const gruposMysql = {
             const [resp] = await conn.query(sql)
             if (resp.length == 0) return null
             let grupo = resp[0]
-            sql = `select * from trabajadoes where grupoId = ${grupoId}`
+            sql = `select * from trabajadores where grupoId = ${grupoId}`
             // Utlizimos resp2 
             const [resp2] = await conn.query(sql)
             // Agregamos la lista de trabajadores al objeto grupo
