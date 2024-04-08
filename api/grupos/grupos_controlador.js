@@ -22,9 +22,9 @@ router.post('/', reglasGrupos, async (req, res, next) => {
             res.status(400).send({ errors: result.array() })
             return
         }
-        let grupos = req.body
-        grupos = await gruposMysql.postGrupos(grupos)
-        res.json(grupos);
+        let grupo = req.body
+        grupo = await gruposMysql.postGrupos(grupo);
+        res.json(grupo);
     } catch (error) {
         next(error)
     }

@@ -40,10 +40,10 @@ const gruposMysql = {
             if (resp.length == 0) return null
             let grupo = resp[0]
             sql = `select * from trabajadores where grupoId = ${grupoId}`
-            // Utlizimos resp2 
+            // Utlizimos resp2
             const [resp2] = await conn.query(sql)
             // Agregamos la lista de trabajadores al objeto grupo
-            grupo.usuarios = resp2;
+            grupo.trabajadores = resp2;
             await conn.end()
             return grupo
         } catch (error) {
@@ -60,7 +60,7 @@ const gruposMysql = {
             let sql = `UPDATE grupos_trabajadores SET ? WHERE grupoId = ?`
             const [resp] = await conn.query(sql, [grupos, grupos.grupoId])
             await conn.end()
-            return resp 
+            return resp
         } catch (error) {
             if (conn) await conn.end()
             throw(error)
