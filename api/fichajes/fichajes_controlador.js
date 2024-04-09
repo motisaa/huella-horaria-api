@@ -97,4 +97,18 @@ router.delete('/:id', reglaFichajeId, async (req, res, next) => {
     }
 });
 
+router.get('/:id/worker', reglaFichajeId, async (req, res, next) => {
+    try {
+        const result = validationResult(req)
+        if (!result.isEmpty()) {
+            res.status(400).send({ errors: result.array() })
+            return
+        }
+        let fichajeWorker = await fichajesMysql.getWorkerNameByFichajeId(req.params.id);
+        res.json(fichajeWorker); // Devuelve el resultado encontrado
+    } catch (error) {
+        next(error)
+    }
+});
+
 export default router;
