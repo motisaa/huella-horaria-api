@@ -26,7 +26,13 @@ const fichajesMysql = {
         try {
             let cfg = mysqlConnection.obtenerConexion()
             conn = await mysql.createConnection(cfg)
-            const [resp] = await conn.query("SELECT * FROM fichajes")
+            let sql = `select
+                        f.*,
+                        concat(t.nombre, " ", t.apellido1, " ", t.apellido2) as nombreTrabajador,
+                        concat(f.latitud, ",", f.longitud) as gps
+                        from fichajes f 
+                        left join trabajadores t on t.trabajadorId = f.trabajadorId `
+            const [resp] = await conn.query(sql)
             await conn.end() // Cierre de la conexión
             return resp
         } catch (error) {
