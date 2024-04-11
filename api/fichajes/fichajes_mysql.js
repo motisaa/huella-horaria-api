@@ -80,29 +80,6 @@ const fichajesMysql = {
             throw (error)
         }
     },
-
-    //Got this function with the help of chatGPT
-    getWorkerNameByFichajeId: async (fichajeId) => {
-        let conn = undefined;
-        try {
-            let cfg = mysqlConnection.obtenerConexion();
-            conn = await mysql.createConnection(cfg);
-            // Convert the fichajeId parameter to a numeric value
-            const parsedFichajeId = parseInt(fichajeId);
-            // Use parameterized query to prevent SQL injection
-            const sql = ` SELECT t.nombre, t.apellido1, t.apellido2
-            FROM fichajes f
-            INNER JOIN trabajadores t ON f.trabajadorId = t.trabajadorId
-            WHERE f.fichajeId = ?`;
-            const [resp] = await conn.query(sql, [parsedFichajeId]);
-            await conn.end();
-            return resp;
-        } catch (error) {
-            if (conn) await conn.end();
-            throw error;
-        }
-    },
-
 }
 
 
