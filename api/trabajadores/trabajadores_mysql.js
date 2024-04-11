@@ -26,7 +26,11 @@ const trabajadoresMysql = {
         try {
             let cfg = mysqlConnection.obtenerConexion()
             conn = await mysql.createConnection(cfg)
-            const [resp] = await conn.query("SELECT * FROM trabajadores")
+            let sql = `select 
+                t.*, gt.nombre as nombreGrupo
+                from trabajadores t 
+                left join grupos_trabajadores gt on gt.grupoId = t.grupoId `
+            const [resp] = await conn.query(sql)
             await conn.end() // Cierre de la conexión
             return resp
         } catch (error) {
@@ -87,7 +91,7 @@ const trabajadoresMysql = {
             let cfg = mysqlConnection.obtenerConexion()
             conn = await mysql.createConnection(cfg)
             let sql = `SELECT grupoId FROM trabajadores WHERE trabajadorId = ${trabajadorId}`
-            const [resp] = await conn.query(sql) 
+            const [resp] = await conn.query(sql)
             let grupoId = resp[0].grupoId; // Obtener el grupoId de la respuesta de la consulta anterior
             sql = `SELECT g.nombre
              FROM trabajadores t, grupos_trabajadores g
