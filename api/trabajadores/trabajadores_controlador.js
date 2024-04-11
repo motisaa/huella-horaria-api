@@ -105,18 +105,6 @@ router.delete('/:id', reglasTrabajadorId, async (req, res, next) => {
     }
 });
 
-router.get('/:id/grupo', reglasTrabajadorId, async (req, res, next) => {
-    try {
-        const result = validationResult(req)
-        if (!result.isEmpty()) {
-            res.status(400).send({ errors: result.array() })
-            return
-        }
-        let trabajadorGrupo = await trabajadoresMysql.getGroupNameByTrabajadorId(req.params.id);
-        res.json(trabajadorGrupo); // Devuelve el resultado encontrado
-    } catch (error) {
-        next(error)
-    }
-})
+
 
 export default router;

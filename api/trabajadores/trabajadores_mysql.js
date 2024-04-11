@@ -84,27 +84,6 @@ const trabajadoresMysql = {
             throw (error)
         }
     },
-
-    getGroupNameByTrabajadorId: async (trabajadorId) => {
-        let conn = undefined
-        try {
-            let cfg = mysqlConnection.obtenerConexion()
-            conn = await mysql.createConnection(cfg)
-            let sql = `SELECT grupoId FROM trabajadores WHERE trabajadorId = ${trabajadorId}`
-            const [resp] = await conn.query(sql)
-            let grupoId = resp[0].grupoId; // Obtener el grupoId de la respuesta de la consulta anterior
-            sql = `SELECT g.nombre
-             FROM trabajadores t, grupos_trabajadores g
-             WHERE t.trabajadorId = ${trabajadorId} AND g.grupoId = ${grupoId}`
-            const [resp2] = await conn.query(sql)
-            await conn.end()
-            return resp2
-        } catch (error) {
-            if (conn) await conn.end()
-            throw (error)
-        }
-    }
-
 }
 
 
