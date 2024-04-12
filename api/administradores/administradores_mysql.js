@@ -82,25 +82,33 @@ const administradoresMysql = {
     },
 
 
-    // postLogin: función asincrónica para autenticar un usuario administrador
+    // postLogin: función asincrónica para autenticar un usuario (admin o trabajador)
     postLogin: async (usuario, password) => {
         let conn = undefined; // Conexión a la base de datos
         try {
             let cfg = mysqlConnection.obtenerConexion(); // Obtiene la configuración de conexión
             conn = await mysql.createConnection(cfg); // Crea la conexión
             let sql = "SELECT * FROM administradores WHERE usuario = ? AND password = ?";
-            const [resp] = await conn.query(sql, [usuario, password]); // Ejecuta la consulta
-            if (resp.length == 0) return null; // Si el administrador no existe, devuelve nulo
-            let admin = resp[0]; // Obtiene el primer resultado
-            await conn.end(); // Cierra la conexión
-            return admin; // Devuelve los datos del administrador
+            const [adminResp] = await conn.query(sql, [usuario, password]); // Ejecuta la consulta para administradores
+            if (adminResp.length > 0) {
+                await conn.end(); // Cierra la conexión
+                return adminResp[0]; // Devuelve los datos del administrador
+            }
+            // Si no se encontró un administrador, busca en la tabla de trabajadores
+            sql = "SELECT * FROM trabajadores WHERE usuario = ? AND password = ?";
+            const [workerResp] = await conn.query(sql, [usuario, password]); // Ejecuta la consulta para trabajadores
+            if (workerResp.length > 0) {
+                await conn.end(); 
+                return workerResp[0]; // Devuelve los datos del trabajador
+            }
+            // Si no se encontró ni administrador ni trabajador, devuelve nada
+            await conn.end();
+            return;
         } catch (error) {
             if (conn) await conn.end(); // Si hay una conexión, la cierra
-            throw (error); // Lanza el error
+            throw error; // Lanza el error
         }
     },
-
-
 }
 
 
