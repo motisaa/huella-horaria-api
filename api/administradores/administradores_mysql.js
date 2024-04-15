@@ -92,14 +92,18 @@ const administradoresMysql = {
             const [adminResp] = await conn.query(sql, [usuario, password]); // Ejecuta la consulta para administradores
             if (adminResp.length > 0) {
                 await conn.end(); // Cierra la conexión
-                return adminResp[0]; // Devuelve los datos del administrador
+                let admin = adminResp[0]
+                admin.tipo = "ADMINISTRADOR"
+                return admin; // Devuelve los datos del administrador
             }
             // Si no se encontró un administrador, busca en la tabla de trabajadores
             sql = "SELECT * FROM trabajadores WHERE usuario = ? AND password = ?";
             const [workerResp] = await conn.query(sql, [usuario, password]); // Ejecuta la consulta para trabajadores
             if (workerResp.length > 0) {
-                await conn.end(); 
-                return workerResp[0]; // Devuelve los datos del trabajador
+                await conn.end();
+                let trabajador = workerResp[0]
+                trabajador.tipo = "TRABAJADOR"
+                return trabajador; // Devuelve los datos del trabajador
             }
             // Si no se encontró ni administrador ni trabajador, devuelve nada
             await conn.end();
