@@ -45,6 +45,16 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+router.get('/fichajes_trabajador/:id', async (req, res, next) => {
+    try {
+        let fichajes = await fichajesMysql.getFichajesTrabajador(req.params.id)
+        // Devuelve fichajes obtenidos
+        res.json(fichajes);
+    } catch (error) {
+        next(error)
+    }
+});
+
 router.get('/:id', reglaFichajeId, async (req, res, next) => {
     try {
         const result = validationResult(req)

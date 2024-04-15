@@ -40,6 +40,29 @@ const fichajesMysql = {
             throw (error)
         }
     },
+
+    // funcion para obtener los fichajes de un trabajador que le pasamos su id
+    getFichajesTrabajador: async (trabajadorId) => {
+        let conn = undefined;
+        try {
+            let cfg = mysqlConnection.obtenerConexion();
+            conn = await mysql.createConnection(cfg);
+            let sql = `SELECT
+                    f.*,
+                    CONCAT(t.nombre, " ", t.apellido1, " ", t.apellido2) AS nombreTrabajador,
+                    FROM fichajes f 
+                    LEFT JOIN trabajadores t ON t.trabajadorId = f.trabajadorId
+                    WHERE t.trabajadorId = ?`;
+            const [resp] = await conn.query(sql, [trabajadorId]);
+            await conn.end(); // Close the connection
+            return resp;
+        } catch (error) {
+            if (conn) await conn.end();
+            throw error;
+        }
+    },
+
+
     // Función para obtener un fichaje por su id
     getFichajeById: async (fichajeId) => {
         let conn = undefined
