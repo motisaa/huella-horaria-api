@@ -48,12 +48,12 @@ const fichajesMysql = {
             let cfg = mysqlConnection.obtenerConexion();
             conn = await mysql.createConnection(cfg);
             let sql = `SELECT
-                    f.*,
-                    CONCAT(t.nombre, " ", t.apellido1, " ", t.apellido2) AS nombreTrabajador,
-                    FROM fichajes f 
-                    LEFT JOIN trabajadores t ON t.trabajadorId = f.trabajadorId
-                    WHERE t.trabajadorId = ?`;
-            const [resp] = await conn.query(sql, [trabajadorId]);
+            f.*,
+            CONCAT(t.nombre, " ", t.apellido1, " ", t.apellido2) AS nombreTrabajador
+            FROM fichajes f 
+            LEFT JOIN trabajadores t ON t.trabajadorId = f.trabajadorId
+            WHERE t.trabajadorId = ?`;
+            const [resp] = await conn.query(sql, trabajadorId);
             await conn.end(); // Close the connection
             return resp;
         } catch (error) {
