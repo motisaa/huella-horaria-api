@@ -1,5 +1,6 @@
 import mysql from 'mysql2/promise'
 import mysqlConnection from '../conexiones/conexion_mysql.js'
+import bcrypt from 'bcrypt';
 
 const trabajadoresMysql = {
     // Función para insertar un/a nuevo/a trabajador/a en la base de datos
@@ -8,6 +9,9 @@ const trabajadoresMysql = {
         try {
             let cfg = mysqlConnection.obtenerConexion()
             conn = await mysql.createConnection(cfg)
+            // Hashing the password before storing it in the database
+            const hashedPassword = bcrypt.hashSync(trabajador.password, 10); // 10 is the salt rounds
+            trabajador.password = hashedPassword; // Replace plain password with hashed password
             // Ejecución de inserción a la base de datos
             const [resp] = await conn.query('INSERT INTO trabajadores SET ?', trabajador)
             await conn.end()
@@ -59,6 +63,11 @@ const trabajadoresMysql = {
         try {
             let cfg = mysqlConnection.obtenerConexion();
             conn = await mysql.createConnection(cfg);
+            // Hashing the password before updating it in the database
+            if (trabajador.password) {
+                const hashedPassword = bcrypt.hashSync(trabajador.password, 10);
+                trabajador.password = hashedPassword;
+            }
             let sql = `UPDATE trabajadores SET ? WHERE trabajadorId = ?`
             // Ejecución de la consulta SQL
             const [resp] = await conn.query(sql, [trabajador, trabajador.trabajadorId])

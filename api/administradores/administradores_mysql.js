@@ -1,5 +1,6 @@
 import mysql from 'mysql2/promise'
 import mysqlConnection from '../conexiones/conexion_mysql.js'
+import bcrypt from 'bcrypt';
 
 const administradoresMysql = {
     // Función para insertar un nueva admin en la base de datos
@@ -8,6 +9,9 @@ const administradoresMysql = {
         try {
             let cfg = mysqlConnection.obtenerConexion()
             conn = await mysql.createConnection(cfg)
+            // Hashing the password before storing it in the database
+            const hashedPassword = bcrypt.hashSync(trabajador.password, 10); // 10 is the salt rounds
+            trabajador.password = hashedPassword; // Replace plain password with hashed password
             // Ejecución de inserción a la base de datos
             const [resp] = await conn.query('INSERT INTO administradores SET ?', admin)
             await conn.end()
@@ -55,6 +59,11 @@ const administradoresMysql = {
         try {
             let cfg = mysqlConnection.obtenerConexion();
             conn = await mysql.createConnection(cfg);
+            // Hashing the password before updating it in the database
+            if (admin.password) {
+                const hashedPassword = bcrypt.hashSync(admin.password, 10);
+                admin.password = hashedPassword;
+            }
             let sql = `UPDATE administradores SET ? WHERE adminId = ?`
             // Ejecución de la consulta SQL
             const [resp] = await conn.query(sql, [admin, admin.adminId])
@@ -88,22 +97,30 @@ const administradoresMysql = {
         try {
             let cfg = mysqlConnection.obtenerConexion(); // Obtiene la configuración de conexión
             conn = await mysql.createConnection(cfg); // Crea la conexión
-            let sql = "SELECT * FROM administradores WHERE usuario = ? AND password = ?";
-            const [adminResp] = await conn.query(sql, [usuario, password]); // Ejecuta la consulta para administradores
+            let sql = "SELECT * FROM administradores WHERE usuario = ?";
+            const [adminResp] = await conn.query(sql, [usuario]); // Ejecuta la consulta para administradores
             if (adminResp.length > 0) {
-                await conn.end(); // Cierra la conexión
-                let admin = adminResp[0]
-                admin.tipo = "ADMINISTRADOR"
-                return admin; // Devuelve los datos del administrador
+                const admin = adminResp[0]
+                const passwordMatch = bcrypt.compareSync(password, trabajador.password);
+                if (passwordMatch) {
+                    await conn.end(); // Cierra la conexión
+                    admin.tipo = "ADMINISTRADOR";
+                    return admin; // Devuelve los datos del administrador
+                }
             }
             // Si no se encontró un administrador, busca en la tabla de trabajadores
-            sql = "SELECT * FROM trabajadores WHERE usuario = ? AND password = ?";
-            const [workerResp] = await conn.query(sql, [usuario, password]); // Ejecuta la consulta para trabajadores
-            if (workerResp.length > 0) {
-                await conn.end();
-                let trabajador = workerResp[0]
-                trabajador.tipo = "TRABAJADOR"
-                return trabajador; // Devuelve los datos del trabajador
+            sql = "SELECT * FROM trabajadores WHERE usuario = ?";
+            // '$2b$10$xxGPHzVa.O5dk99LnGEhpu78BVdcierb3EZgbcO5sTDiOSkRJaUtS'
+            // $2b$10$xxGPHzVa.O5dk99LnGEhpu78BVdcierb3
+            const [workerResp] = await conn.query(sql, [usuario]); // Ejecuta la consulta para trabajadores
+            if (workerResp.length > 0) {    
+                const trabajador = workerResp[0]
+                const passwordMatch = bcrypt.compareSync(password, trabajador.password);
+                if (passwordMatch) {
+                    await conn.end(); // Cierra la conexión
+                    trabajador.tipo = "TRABAJADOR";
+                    return trabajador; // Devuelve los datos del trabajador
+                }
             }
             // Si no se encontró ni administrador ni trabajador, devuelve nada
             await conn.end();
