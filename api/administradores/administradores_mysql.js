@@ -101,7 +101,7 @@ const administradoresMysql = {
             const [adminResp] = await conn.query(sql, [usuario]); // Ejecuta la consulta para administradores
             if (adminResp.length > 0) {
                 const admin = adminResp[0]
-                const passwordMatch = bcrypt.compareSync(password, trabajador.password);
+                const passwordMatch = bcrypt.compareSync(password, admin.password);
                 if (passwordMatch) {
                     await conn.end(); // Cierra la conexión
                     admin.tipo = "ADMINISTRADOR";
