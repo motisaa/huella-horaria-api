@@ -24,11 +24,6 @@ let reglasAdminId = [
 let reglasAdminPut = [
     body('adminId').notEmpty()
 ]
-const loginValidationRules = [
-    body('usuario').notEmpty(),
-    body('password').notEmpty(),
-];
-
 //usamos async para poder usar en su interior instrucciones tipo wait.
 // Ruta para crear un nuevo admin
 router.post('/', async (req, res, next) => {
@@ -120,32 +115,5 @@ router.delete('/:id', reglasAdminId, async (req, res, next) => {
         next(error)
     }
 });
-
-// Ruta para la autenticación de usuarios administradores
-router.post("/login", loginValidationRules, async (req, res) => {
-    try {
-        // Valida los errores de la solicitud
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            // Si hay errores, devuelve un mensaje de error con los detalles
-            return res.status(400).json({ errors: errors.array() });
-        }
-        // Obtiene el usuario y la contraseña del cuerpo de la solicitud
-        const { usuario, password } = req.body;
-        // Intenta iniciar sesión con las credenciales proporcionadas
-        const admin = await administradoresMysql.postLogin(usuario, password);
-        if (admin) {
-            // Si el inicio de sesión tiene éxito, devuelve los datos del administrador
-            return res.json(admin);
-        } else {
-            // Si las credenciales son incorrectas, devuelve un mensaje de error
-            return res.status(401).json({ error: 'Nombre de usuario y contraseña incorrectos' });
-        }
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: 'Error interno del servidor' });
-    }
-});
-
 
 export default router;
