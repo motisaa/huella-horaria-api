@@ -10,8 +10,8 @@ const administradoresMysql = {
             let cfg = mysqlConnection.obtenerConexion()
             conn = await mysql.createConnection(cfg)
             // Hashing the password before storing it in the database
-            const hashedPassword = bcrypt.hashSync(trabajador.password, 10); // 10 is the salt rounds
-            trabajador.password = hashedPassword; // Replace plain password with hashed password
+            const hashedPassword = bcrypt.hashSync(admin.password, 10); // 10 is the salt rounds
+            admin.password = hashedPassword; // Replace plain password with hashed password
             // Ejecución de inserción a la base de datos
             const [resp] = await conn.query('INSERT INTO administradores SET ?', admin)
             await conn.end()
