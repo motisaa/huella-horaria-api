@@ -27,7 +27,7 @@ router.post("/", loginValidationRules, async (req, res) => {
             return res.json(user);
         } else {
             // Si las credenciales son incorrectas, devuelve un mensaje de error
-            return res.status(401).json({ error: 'Nombre de usuario y contraseña incorrectos' });
+            return res.status(401).json( 'El nombre de usuario y/o la contraseña son incorrectos' );
         }
     } catch (error) {
         console.error(error);
