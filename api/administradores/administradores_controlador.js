@@ -4,18 +4,13 @@ import administradoresMysql from './administradores_mysql.js';
 
 var router = express.Router();
 // Definición de reglas de validación para la creación de un admin
-function reglasAdmin() {
     let reglasAdmin = [
         // El nombre de admin no debe estar vacío
         body('nombre').notEmpty(),
         body('apellido1').notEmpty(),
-        // verifica si email de admin no está vacío y es un email de verdad 
         body('usuario').notEmpty(),
         body('password').notEmpty(),
-        body('email').notEmpty().isEmail
     ]
-    return;
-}
 
 let reglasAdminId = [
     param('id').notEmpty()
@@ -26,16 +21,8 @@ let reglasAdminPut = [
 ]
 //usamos async para poder usar en su interior instrucciones tipo wait.
 // Ruta para crear un nuevo admin
-router.post('/', async (req, res, next) => {
+router.post('/', reglasAdmin, async (req, res, next) => {
     try {
-        reglasAdmin();
-        /*
-            body('nombre').notEmpty(),
-            body('apellido1').notEmpty(),
-            // verifica si email de admin no está vacío y es un email de verdad 
-            body('usuario').notEmpty(),
-            body('password').notEmpty(),
-            body('email').notEmpty().isEmail */
         const result = validationResult(req)
         if (!result.isEmpty()) {
             // Devuelve errores de validación si existen
