@@ -63,12 +63,20 @@ const trabajadoresMysql = {
         try {
             let cfg = mysqlConnection.obtenerConexion();
             conn = await mysql.createConnection(cfg);
-            // Hashing the password before updating it in the database
-            if (trabajador.password) {
+            // Leemos el valor actual del trabajador
+            let sql = `SELECT * FROM trabajadores WHERE trabajadorId = ${trabajador.trabajadorId}`
+            const [r] = await conn.query(sql)
+            let trabajador_ant = r[0]
+            /* FIXED: Evitamos de hashear otra vez la contraseña actual en el caso de que
+             el usuario no cambia la contraseña y cambia otras informaciones 
+             verificamos si el password que nos pasa no es igual a password anterior
+             */
+            if (trabajador.password !== trabajador_ant.password) {
+                // Hashing the password before updating it in the database
                 const hashedPassword = bcrypt.hashSync(trabajador.password, 10);
                 trabajador.password = hashedPassword;
             }
-            let sql = `UPDATE trabajadores SET ? WHERE trabajadorId = ?`
+            sql = `UPDATE trabajadores SET ? WHERE trabajadorId = ?`
             // Ejecución de la consulta SQL
             const [resp] = await conn.query(sql, [trabajador, trabajador.trabajadorId])
             await conn.end();
