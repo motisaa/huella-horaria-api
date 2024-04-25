@@ -59,12 +59,20 @@ const administradoresMysql = {
         try {
             let cfg = mysqlConnection.obtenerConexion();
             conn = await mysql.createConnection(cfg);
-            // Hashing the password before updating it in the database
-            if (admin.password) {
+            // Leemos el valor actual del trabajador
+            let sql = `SELECT * FROM administradores WHERE adminId = ${admin.adminId}`
+            const [r] = await conn.query(sql)
+            let adminAnt = r[0]
+            /* FIXED: Evitamos de hashear otra vez la contraseña actual en el caso de que
+             el usuario no cambia la contraseña y cambia otras informaciones 
+             verificamos si el password nuevo que nos pasa no es igual a su password 
+             guardado en BD
+             */
+            if (admin.password !== adminAnt.password) {
                 const hashedPassword = bcrypt.hashSync(admin.password, 10);
                 admin.password = hashedPassword;
             }
-            let sql = `UPDATE administradores SET ? WHERE adminId = ?`
+             sql = `UPDATE administradores SET ? WHERE adminId = ?`
             // Ejecución de la consulta SQL
             const [resp] = await conn.query(sql, [admin, admin.adminId])
             await conn.end();
