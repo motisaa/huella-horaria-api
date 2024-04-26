@@ -1,6 +1,6 @@
 {
   "name": "huella-horaria-server",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "El servidor del proyecto huella horaria",
   "main": "app.js",
   "scripts": {
