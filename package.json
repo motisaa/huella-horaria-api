@@ -1,21 +1,21 @@
 {
-  "name": "huella-horaria-api",
-  "version": "1.0.0",
-  "description": "Este va a ser api del proyecto huella horaria",
+  "name": "huella-horaria-server",
+  "version": "1.0.3",
+  "description": "El servidor del proyecto huella horaria",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/motisaa/huella-horaria-api.git"
+    "url": "git+https://github.com/motisaa/huella-horaria-server.git"
   },
   "author": "Motahare Saidi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/motisaa/huella-horaria-api/issues"
+    "url": "https://github.com/motisaa/huella-horaria-server/issues"
   },
-  "homepage": "https://github.com/motisaa/huella-horaria-api#readme",
+  "homepage": "https://github.com/motisaa/huella-horaria-server#readme",
   "type": "module",
   "dependencies": {
     "app-root-path": "^3.1.0",
