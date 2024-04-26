@@ -1,6 +1,6 @@
 import mysql from 'mysql2/promise'
 import mysqlConnection from '../conexiones/conexion_mysql.js'
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 const trabajadoresMysql = {
     // Función para insertar un/a nuevo/a trabajador/a en la base de datos

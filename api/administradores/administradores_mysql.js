@@ -1,6 +1,6 @@
 import mysql from 'mysql2/promise'
 import mysqlConnection from '../conexiones/conexion_mysql.js'
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 const administradoresMysql = {
     // Función para insertar un nueva admin en la base de datos
