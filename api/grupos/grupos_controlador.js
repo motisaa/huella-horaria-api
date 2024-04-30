@@ -86,6 +86,11 @@ router.delete('/:grupoId', reglasGrupoId, async (req, res, next) => {
         res.json(grupo);
     } catch (error) {
         next(error)
+        /*  ERROR http response status 405.
+            MDN: The request method 
+            is known by the server but is not supported by the target resource.
+            For example, an API may not allow calling DELETE to remove a resource. */
+            return res.status(405).json({ error: 'Method not Allowed' });
     }
 })
 
