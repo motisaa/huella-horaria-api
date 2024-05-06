@@ -7,8 +7,20 @@ const trabajadoresMysql = {
     postTrabajadores: async (trabajador) => {
         let conn = undefined // Inicialización de la conexión a la base de datos
         try {
-            let cfg = mysqlConnection.obtenerConexion()
-            conn = await mysql.createConnection(cfg)
+        let cfg = mysqlConnection.obtenerConexion()
+        conn = await mysql.createConnection(cfg)
+        let sql = 'SELECT * FROM trabajadores WHERE usuario = ?'
+        // Verificar si el nombre de usuario ya existe en la tabla trabajadores
+        const [existingUserWorker] = await conn.query(sql, [trabajador.usuario]);
+        if (existingUserWorker.length > 0) {
+            return { error: 'El nombre de usuario ya existe, por favor elija otro.' };
+            }
+            //Verificar si el nombre de usuario ya existe en la tabla administradores
+        sql = 'SELECT * FROM administradores WHERE usuario = ?';
+        const [existingUserAdmin] = await conn.query(sql, [trabajador.usuario]);
+        if (existingUserAdmin.length > 0) {
+            return { error: 'El nombre de usuario ya existe, por favor elija otro.' };
+        }
             // Hashing the password before storing it in the database
             const hashedPassword = bcrypt.hashSync(trabajador.password, 10); // 10 is the salt rounds
             trabajador.password = hashedPassword; // Replace plain password with hashed password
@@ -67,6 +79,23 @@ const trabajadoresMysql = {
             let sql = `SELECT * FROM trabajadores WHERE trabajadorId = ${trabajador.trabajadorId}`
             const [r] = await conn.query(sql)
             let trabajador_ant = r[0]
+            // Verificar si el nombre de usuario ya existe en la tabla trabajadores
+            // excluyendo el nombre de usuario actual
+            if (trabajador.usuario !== trabajador_ant.usuario) {
+                sql = 'SELECT * FROM trabajadores WHERE usuario = ?'
+                const [existingUserWorker] = await conn.query(sql, [trabajador.usuario]);
+                if (existingUserWorker.length > 0) {
+                    return { error: 'El nombre de usuario ya existe, por favor elija otro.' };
+                    }
+            }
+                
+        //Verificar si el nombre de usuario ya existe en la tabla administradores
+        sql = 'SELECT * FROM administradores WHERE usuario = ?';
+        const [existingUserAdmin] = await conn.query(sql, [trabajador.usuario]);
+        if (existingUserAdmin.length > 0) {
+            return { error: 'El nombre de usuario ya existe, por favor elija otro.' };
+        }
+            
             /* FIXED: Evitamos de hashear otra vez la contraseña actual en el caso de que
              el usuario no cambia la contraseña y cambia otras informaciones 
              verificamos si el password que nos pasa no es igual a password anterior

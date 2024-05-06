@@ -31,12 +31,17 @@ router.post('/', reglasTrabajador, async (req, res, next) => {
         }
         let trabajador = req.body
         //Inserta trabajador nuevo en la base de datos
-        trabajador = await trabajadoresMysql.postTrabajadores(trabajador)
-        res.json(trabajador); // Devuelve el trabajador creado
+        let response = await trabajadoresMysql.postTrabajadores(trabajador)
+        // Manejo de errores
+        if (response.error) {
+            // Conflict: El nombre de usuario ya existe
+            res.status(409).json(response.error);
+        } else {
+            res.json(response); // Devuelve el trabajador creado
+        }
     } catch (error) {
-        next(error)
+        next(error); // Otro tipo de error, pasa al siguiente middleware de manejo de errore
     }
-
 });
 
 //Ruta para obtener todos los trabajadors
@@ -79,12 +84,18 @@ router.put('/', reglasTrabajadorPut, async (req, res, next) => {
         }
         let trabajador = req.body;
         // Actualiza el trabajador en la base de datos
-        await trabajadoresMysql.putTrabajadorMsql(trabajador)
-        res.json(trabajador); // Devuelve el trabajador actualizada
-    } catch (error) {
-        next(error)
-    }
+        let response = await trabajadoresMysql.putTrabajadorMsql(trabajador)
+        // Manejo de errores
+        if (response.error) {
+            // Conflict: El nombre de usuario ya existe
+            res.status(409).json(response.error);
+        } else {
+            res.json(response); // Devuelve el trabajador actualizada
+        }
 
+    } catch (error) {
+        next(error); // Otro tipo de error, pasa al siguiente middleware de manejo de errores
+    }
 });
 
 // Ruta para eliminar un trabajador por su id
