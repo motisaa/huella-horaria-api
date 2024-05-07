@@ -31,8 +31,14 @@ router.post('/', reglasAdmin, async (req, res, next) => {
         }
         let admin = req.body
         //Inserta admin nuevo en la base de datos
-        admin = await administradoresMysql.postAdmins(admin)
-        res.json(admin); // Devuelve el admin creado
+        let response = await administradoresMysql.postAdmins(admin)
+        if (response.error) {
+         // Conflict: El nombre de usuario ya existe
+         res.status(409).json(response.error);
+        } else {
+            res.json(response); // Devuelve el admin creado
+        }
+        
     } catch (error) {
         next(error)
     }
@@ -79,12 +85,16 @@ router.put('/', reglasAdminPut, async (req, res, next) => {
         }
         let admin = req.body;
         // Actualiza el admin en la base de datos
-        await administradoresMysql.putAdminsMsql(admin)
-        res.json(admin); // Devuelve el admin actualizada
+        let response = await administradoresMysql.putAdminsMsql(admin)
+        if (response.error) {
+            // Conflict: El nombre de usuario ya existe
+            res.status(409).json(response.error);
+        } else {
+            res.json(admin); // Devuelve el admin actualizada   
+        }
     } catch (error) {
         next(error)
     }
-
 });
 
 // Ruta para eliminar un admin por su id
