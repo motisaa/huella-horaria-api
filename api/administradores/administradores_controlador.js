@@ -1,6 +1,7 @@
 import express from 'express';
 import { body, param, validationResult } from 'express-validator'
 import administradoresMysql from './administradores_mysql.js';
+import auth from '../middleware/auth.js';
 
 var router = express.Router();
 // Definición de reglas de validación para la creación de un admin
@@ -21,7 +22,7 @@ let reglasAdminPut = [
 ]
 //usamos async para poder usar en su interior instrucciones tipo wait.
 // Ruta para crear un nuevo admin
-router.post('/', reglasAdmin, async (req, res, next) => {
+router.post('/', reglasAdmin, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
