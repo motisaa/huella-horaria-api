@@ -1,9 +1,9 @@
 import { Router } from 'express';
 const router = Router();
 import pk from '../../package.json' assert {type: 'json'};
-import auth from '../middleware/auth.js';
 
-router.get('/', auth, (req, res) => {
+
+router.get('/', (req, res) => {
     let version = {
         name: pk.name,
         version: pk.version,
