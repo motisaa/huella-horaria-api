@@ -2,16 +2,16 @@
 import mysql from 'mysql2/promise'
 import mysqlConnection from '../conexiones/conexion_mysql.js'
 async function auth(req, res, next) {
-    // Verificar si existe la cabecera/header x-api-key
-    if (!req.header("x-api-key")) {
+    // Verificar si existe la cabecera/header api-key
+    if (!req.header("api-key")) {
         res.status(401);
         return res.json({ message: "API key no proporcionada" });
     }
 
     // Leer la API key de la empresa
-    const apiKey = req.header("x-api-key");
+    const apiKey = req.header("api-key");
     //clave maestra
-    if (apiKey === 's];u>NdU3Vc<L2&/TKg@CP') {
+    if (apiKey === process.env.API_KEY) {
         next()
         return
     }
