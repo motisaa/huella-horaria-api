@@ -1,6 +1,7 @@
 import express from 'express';
 import {body, param, validationResult} from 'express-validator'
 import gruposMysql from './grupos_mysql.js'
+import auth from '../middleware/auth.js'
 
 var router = express.Router();
 
@@ -15,7 +16,7 @@ let reglasGrupoPut = [
     body('grupoId').notEmpty()
 ]
 
-router.post('/', reglasGrupos, async (req, res, next) => {
+router.post('/', reglasGrupos, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
@@ -30,7 +31,7 @@ router.post('/', reglasGrupos, async (req, res, next) => {
     }
 });
 
-router.get('/', async (req, res, next) => {
+router.get('/', auth, async (req, res, next) => {
     try {
         let grupos = await gruposMysql.getGrupos();
         res.json(grupos);
@@ -39,7 +40,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.get('/:grupoId', reglasGrupoId, async (req, res, next) => {
+router.get('/:grupoId', reglasGrupoId, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
@@ -59,7 +60,7 @@ router.get('/:grupoId', reglasGrupoId, async (req, res, next) => {
     }
 })
 
-router.put('/', reglasGrupoPut, async (req, res, next) => {
+router.put('/', reglasGrupoPut, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
@@ -75,7 +76,7 @@ router.put('/', reglasGrupoPut, async (req, res, next) => {
 
 });
 
-router.delete('/:grupoId', reglasGrupoId, async (req, res, next) => {
+router.delete('/:grupoId', reglasGrupoId, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {

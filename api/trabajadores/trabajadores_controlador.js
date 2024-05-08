@@ -1,6 +1,7 @@
 import express from 'express';
 import { body, param, validationResult } from 'express-validator'
 import trabajadoresMysql from './trabajadores_mysql.js';
+import auth from '../middleware/auth.js';
 
 var router = express.Router();
 // Definición de reglas de validación para la creación de un trabajador
@@ -21,7 +22,7 @@ let reglasTrabajadorPut = [
 
 //usamos async para poder usar en su interior instrucciones tipo wait.
 // Ruta para crear un nuevo trabajador
-router.post('/', reglasTrabajador, async (req, res, next) => {
+router.post('/', reglasTrabajador, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
@@ -45,7 +46,7 @@ router.post('/', reglasTrabajador, async (req, res, next) => {
 });
 
 //Ruta para obtener todos los trabajadors
-router.get('/', async (req, res, next) => {
+router.get('/', auth, async (req, res, next) => {
     try {
         // Obtiene todos trabajadors de la base de datos
         let trabajadors = await trabajadoresMysql.getTrabajadorMsql();
@@ -56,7 +57,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.get('/:id', reglasTrabajadorId, async (req, res, next) => {
+router.get('/:id', reglasTrabajadorId, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
@@ -75,7 +76,7 @@ router.get('/:id', reglasTrabajadorId, async (req, res, next) => {
     }
 })
 // Ruta para actualizar un trabajador
-router.put('/', reglasTrabajadorPut, async (req, res, next) => {
+router.put('/', reglasTrabajadorPut, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
@@ -99,7 +100,7 @@ router.put('/', reglasTrabajadorPut, async (req, res, next) => {
 });
 
 // Ruta para eliminar un trabajador por su id
-router.delete('/:id', reglasTrabajadorId, async (req, res, next) => {
+router.delete('/:id', reglasTrabajadorId, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {

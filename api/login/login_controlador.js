@@ -1,6 +1,7 @@
 import loginMysql from "./login_mysql.js";
 import express from 'express';
 import { body, validationResult } from 'express-validator'
+import auth from "../middleware/auth.js";
 
 var router = express.Router();
 
@@ -10,7 +11,7 @@ const loginValidationRules = [
 ];
 
 // Ruta para la autenticación de usuarios
-router.post("/", loginValidationRules, async (req, res) => {
+router.post("/", loginValidationRules, auth, async (req, res) => {
     try {
         // Valida los errores de la solicitud
         const errors = validationResult(req);

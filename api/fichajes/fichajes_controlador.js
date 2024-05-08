@@ -1,6 +1,7 @@
 import express from 'express';
 import { body, param, validationResult } from 'express-validator'
 import fichajesMysql from './fichajes_mysql.js';
+import auth from '../middleware/auth.js';
 
 var router = express.Router();
 
@@ -15,7 +16,7 @@ let reglaFichajePut = [
 
 //usamos async para poder usar en su interior instrucciones tipo wait.
 // Ruta para crear un nuevo fichaje
-router.post('/', async (req, res, next) => {
+router.post('/', auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
@@ -34,7 +35,7 @@ router.post('/', async (req, res, next) => {
 });
 
 //Ruta para obtener todos los fichajes
-router.get('/', async (req, res, next) => {
+router.get('/', auth, async (req, res, next) => {
     try {
         // Obtiene todos fichajes de la base de datos
         let fichajes = await fichajesMysql.getFichajesMsql();
@@ -45,7 +46,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.get('/fichajes_trabajador/:id', async (req, res, next) => {
+router.get('/fichajes_trabajador/:id', auth, async (req, res, next) => {
     try {
         let fichajes = await fichajesMysql.getFichajesTrabajador(req.params.id)
         // Devuelve fichajes obtenidos
@@ -55,7 +56,7 @@ router.get('/fichajes_trabajador/:id', async (req, res, next) => {
     }
 });
 
-router.get('/:id', reglaFichajeId, async (req, res, next) => {
+router.get('/:id', reglaFichajeId, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
@@ -74,7 +75,7 @@ router.get('/:id', reglaFichajeId, async (req, res, next) => {
     }
 })
 // Ruta para actualizar un fichaje
-router.put('/', reglaFichajePut, async (req, res, next) => {
+router.put('/', reglaFichajePut, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
@@ -92,7 +93,7 @@ router.put('/', reglaFichajePut, async (req, res, next) => {
 });
 
 // Ruta para eliminar un fichaje por su id
-router.delete('/:id', reglaFichajeId, async (req, res, next) => {
+router.delete('/:id', reglaFichajeId, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {

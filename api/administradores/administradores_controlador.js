@@ -47,7 +47,7 @@ router.post('/', reglasAdmin, auth, async (req, res, next) => {
 });
 
 //Ruta para obtener todos los admins
-router.get('/', async (req, res, next) => {
+router.get('/', auth, async (req, res, next) => {
     try {
         // Obtiene todos admins de la base de datos
         let admins = await administradoresMysql.getAdminsMsql();
@@ -58,7 +58,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.get('/:id', reglasAdminId, async (req, res, next) => {
+router.get('/:id', reglasAdminId, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
@@ -77,7 +77,7 @@ router.get('/:id', reglasAdminId, async (req, res, next) => {
     }
 })
 // Ruta para actualizar un admin
-router.put('/', reglasAdminPut, async (req, res, next) => {
+router.put('/', reglasAdminPut, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
@@ -99,7 +99,7 @@ router.put('/', reglasAdminPut, async (req, res, next) => {
 });
 
 // Ruta para eliminar un admin por su id
-router.delete('/:id', reglasAdminId, async (req, res, next) => {
+router.delete('/:id', reglasAdminId, auth, async (req, res, next) => {
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
