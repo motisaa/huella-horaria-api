@@ -80,21 +80,6 @@ const empresasMysql = {
             throw(error)
         }
     },
-    buscarEmpresaPorCodigo: async (codigo) => {
-        let conn = undefined
-        try {
-            let cfg = mysqlConnection.obtenerConexion()
-            conn = await mysql.createConnection(cfg)
-            const [resp] = await conn.query(`SELECT * FROM empresas WHERE codigo='${codigo}'`)
-            await conn.end()
-            if (resp.length === 0) return null
-            let empresa = resp[0]
-            return empresa
-        } catch (error) {
-            if (conn) await conn.end()
-            throw (error)
-        }
-    },
 }
 
 export default empresasMysql;
