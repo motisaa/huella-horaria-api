@@ -99,4 +99,18 @@ router.delete('/:id', reglasEmpresaId, async (req, res, next) => {
     }
 })
 
+//Ruta para buscar empresa por su código
+router.post("/buscar-codigo", async (req, res, next) => {
+    try {
+        let empresa = req.body
+        if (!empresa.codigo) {
+            return res.status(400).json(`Debe incluir el código de empresa.`)
+        }
+        let r = await empresasMysql.buscarEmpresaPorCodigo(empresa.codigo)
+        if (!r) return res.status(404).json(`No se ha encontrado una empresa con el código ${empresa.codigo}`)
+        res.json(r)
+    } catch (error) {
+        next(error)
+    }
+})
 export default router;
