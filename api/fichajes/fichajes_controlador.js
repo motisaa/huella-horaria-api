@@ -2,6 +2,7 @@ import express from 'express';
 import { body, param, validationResult } from 'express-validator'
 import fichajesMysql from './fichajes_mysql.js';
 import auth from '../middleware/auth.js';
+import moment from 'moment'
 
 var router = express.Router();
 
@@ -111,7 +112,9 @@ router.delete('/:id', reglaFichajeId, auth, async (req, res, next) => {
 router.get('/serverTime/date', async (req, res, next) => {
     let fecha = new Date()
     try {
-        res.json({ fecha });
+        res.json({
+            fecha: moment(fecha).format('YYYY-MM-DD HH:mm')
+        });
     } catch (error) {
         next(error);
     }
