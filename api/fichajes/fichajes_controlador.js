@@ -108,4 +108,13 @@ router.delete('/:id', reglaFichajeId, auth, async (req, res, next) => {
     }
 });
 
+router.get('/serverTime/date', async (req, res, next) => {
+    let fecha = new Date()
+    try {
+        res.json({ fecha });
+    } catch (error) {
+        next(error);
+    }
+});
+
 export default router;
