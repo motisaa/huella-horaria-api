@@ -1,0 +1,1137 @@
+{
+	"info": {
+		"_postman_id": "fbd316e2-0431-40c4-89e3-375488519e3a",
+		"name": "Huella Horaria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31854385"
+	},
+	"item": [
+		{
+			"name": "V1",
+			"item": [
+				{
+					"name": "Empresas",
+					"item": [
+						{
+							"name": "Leer todas las empresas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/empresas",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"empresas"
+									]
+								},
+								"description": "Lee todas las empresas dadas de alta en la base de datos"
+							},
+							"response": []
+						},
+						{
+							"name": "Crear empresas",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"empresa3\",\r\n    \"direccion\": \"plaza Enrique\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/empresas",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"empresas"
+									]
+								},
+								"description": "El post sirve para crear una empresa en la base de datos. Se controla que el nombre se incluye en la petición. En en ejemplo hemos pasado el nombre y la dirección de la empresa para crearla."
+							},
+							"response": [
+								{
+									"name": "crear empresas",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"empresa1\",\r\n    \"direccion\": \"plaza España\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}:{{port}}/v1/empresas",
+											"host": [
+												"{{url}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"v1",
+												"empresas"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "63"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"3f-56vIN7lUIgm63EpmcqdsFTg25hk\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 26 Mar 2024 08:07:41 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"nombre\": \"empresa1\",\n    \"direccion\": \"plaza España\",\n    \"empresaId\": 1\n}"
+								}
+							]
+						},
+						{
+							"name": "Leer una empresa",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/empresas/1",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"empresas",
+										"1"
+									]
+								},
+								"description": "Devuelve la empresa cuyo empresaId coincide con el id pasado. En el caso del ejemplo vemos los datos de la empresa con empresaId = 1."
+							},
+							"response": [
+								{
+									"name": "Leer una empresa",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}:{{port}}/v1/empresas/1",
+											"host": [
+												"{{url}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"v1",
+												"empresas",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "63"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"3f-Q35Qkh+g+Xj4biQvImC/20hwm14\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 26 Mar 2024 08:11:23 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"empresaId\": 1,\n    \"nombre\": \"empresa1\",\n    \"direccion\": \"plaza España\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Update empresa",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"empresaId\": 1,\r\n    \"nombre\": \"Andrés Abogados\",\r\n    \"direccion\": \"Calle Colón, n 14\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/empresas",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"empresas"
+									]
+								},
+								"description": "En esta llamada se le pasa en el cuerpo un objeto JSON que indica cómo queremos que quede el registro. Solo se cambiarán los atributos con valor en el objeto pasado."
+							},
+							"response": [
+								{
+									"name": "update empresa",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"empresaId\": 1,\r\n    \"nombre\": \"Andrés Abogados\",\r\n    \"direccion\": \"Calle Colón, n 14\"\r\n\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}:{{port}}/v1/empresas",
+											"host": [
+												"{{url}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"v1",
+												"empresas"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "76"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"4c-dVZCckg5BlrYQp4SA0pmAvnoL04\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 26 Mar 2024 08:19:18 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"empresaId\": 1,\n    \"nombre\": \"Andrés Abogados\",\n    \"direccion\": \"Calle Colón, n 14\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete empresa",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/empresas/1",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"empresas",
+										"1"
+									]
+								},
+								"description": "Borrar el registro que tiene empresaId igual al id pasado. Si un registro así no existe el borrar no tiene efecto.\n\nPara distinguir el caso de que el registro existe y ha borrado, del caso no encontrar el registro, nos podemos fijar en la respuesta u en concreto en el campo affectedRows. Si el valor de affectedRows es 1, significa que se ha borrado un registro de la base de datos. Si el valor es 0, significa que no se encontró el registro que se intentaba borrar."
+							},
+							"response": []
+						},
+						{
+							"name": "BUSCAR EMPRESA POR COIDGO",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"codigo\" :  \"iU58\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/empresas/buscar-codigo/",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"empresas",
+										"buscar-codigo",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Contiene las llamadas para el manejo de empresas"
+				},
+				{
+					"name": "Administradores",
+					"item": [
+						{
+							"name": "Crear administradores",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"admin3\",\r\n    \"apellido1\": \"admin3\",\r\n    \"empresaId\": 2,\r\n    \"usuario\": \"admin5\",\r\n    \"password\": \"1234\",\r\n    \"email\": \"admintest2@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/administradores",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"administradores"
+									]
+								},
+								"description": "El post sirve para crear un admin en la base de datos. Se controla que el nombre, primer apellido, usuario, password, email, empresaId se incluyen en la petición."
+							},
+							"response": []
+						},
+						{
+							"name": "Leer todos los admins",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/administradores",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"administradores"
+									]
+								},
+								"description": "Se realiza una solicitud HTTP GET para obtener una lista de administradores. La solicitud debe enviarse a {{url}}:{{port}}/v1/administradores."
+							},
+							"response": []
+						},
+						{
+							"name": "Leer un admin",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/administradores/1",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"administradores",
+										"1"
+									]
+								},
+								"description": "Devuelve el admin cuyo adminId coincide con el id pasado."
+							},
+							"response": []
+						},
+						{
+							"name": "Update admin",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"adminId\": 1,\r\n    \"nombre\": \"Ziba\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/administradores",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"administradores"
+									]
+								},
+								"description": "En esta llamada se le pasa en el cuerpo un objeto JSON que indica cómo queremos que quede el registro. Solo se cambiarán los atributos con valor en el objeto pasado."
+							},
+							"response": []
+						},
+						{
+							"name": "Delete un admin",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/administradores/2",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"administradores",
+										"2"
+									]
+								},
+								"description": "Borrar el registro que tiene adminId igual al id pasado. Si un registro así no existe el borrar no tiene efecto.\n\nSi el valor de affectedRow es 0, significa que no se encontró el registro que se intentaba borrar y si es 1 significa que se ha borrado con éxito."
+							},
+							"response": []
+						},
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"usuario\": \"admin\",\r\n    \"password\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/administradores/login",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"administradores",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Contiene las llamadas para el manejo de administradores"
+				},
+				{
+					"name": "Trabajadores",
+					"item": [
+						{
+							"name": "Crear trabajadores",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Ana\",\r\n    \"apellido1\": \"Garcia\",\r\n    \"empresaId\": 2,\r\n    \"usuario\": \"ana\",\r\n    \"password\": \"anagarcia2\",\r\n    \"email\": \"anagarcia@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/trabajadores",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"trabajadores"
+									]
+								},
+								"description": "El post sirve para crear un trabajador en la base de datos. Se controla que el nombre, primer apellido, usuario, password, email, empresaId se incluyen en la petición."
+							},
+							"response": []
+						},
+						{
+							"name": "Leer todos los trabajadores",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/trabajadores",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"trabajadores"
+									]
+								},
+								"description": "Con esta solicitud obtenemos la lista de todos los trabajadores de base de datos."
+							},
+							"response": []
+						},
+						{
+							"name": "Leer un trabajador",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/trabajadores/2",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"trabajadores",
+										"2"
+									]
+								},
+								"description": "Devuele el trabajador que hemos pasado su id en la solicitud de get."
+							},
+							"response": []
+						},
+						{
+							"name": "Update trabajador",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"trabajadorId\": 1,\r\n    \"nombre\": \"Shirin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/trabajadores",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"trabajadores"
+									]
+								},
+								"description": "Esta solicitud actualiza el/la trabajador/a. En esta llamada se le pasa en el cuerpo un objeto JSON que indica cómo queremos que quede el registro. Solo se cambiarán los atributos con valor en el objeto pasado."
+							},
+							"response": []
+						},
+						{
+							"name": "Delete un trabajador",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/trabajadores/1",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"trabajadores",
+										"1"
+									]
+								},
+								"description": "Borrar el registro que tiene trabajadorId igual al id pasado. Si un registro así no existe el borrar no tiene efecto.\n\nSi el valor de affectedRows es 0, significa que no se encontró el registro que se intentaba borrar y si es 1 significa que se ha borrado con éxito."
+							},
+							"response": []
+						},
+						{
+							"name": "Get group Name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/trabajadores/6/grupo",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"trabajadores",
+										"6",
+										"grupo"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Contiene las llamadas para el manejo de empresas"
+				},
+				{
+					"name": "Fichajes",
+					"item": [
+						{
+							"name": "Crear fichaje",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"trabajadorId\": 2,\r\n    \"direccion\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/fichajes",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"fichajes"
+									]
+								},
+								"description": "Con esta llamada se crea un nuevo fichaje. En en body de solicitud se pasan las propiedades como trabajadorId, direccion."
+							},
+							"response": []
+						},
+						{
+							"name": "Leer todos los fichajes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/fichajes",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"fichajes"
+									]
+								},
+								"description": "Con esta llamada se leen todos fichajes que hay en Base de datos."
+							},
+							"response": [
+								{
+									"name": "Leer todos los fichajes",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}:{{port}}/v1/fichajes",
+											"host": [
+												"{{url}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"v1",
+												"fichajes"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "234"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"ea-dF794uDHaOjJXabtSynpF0kLC1Q\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 27 Mar 2024 07:33:47 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"fichajeId\": 3,\n        \"trabajadorId\": 2,\n        \"fecha_hora\": null,\n        \"direccion\": \"test\",\n        \"longitud\": null,\n        \"latitud\": null,\n        \"tipo\": null\n    },\n    {\n        \"fichajeId\": 4,\n        \"trabajadorId\": 4,\n        \"fecha_hora\": null,\n        \"direccion\": \"calle Perez\",\n        \"longitud\": null,\n        \"latitud\": null,\n        \"tipo\": null\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Leer un fichero",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/fichajes/3",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"fichajes",
+										"3"
+									]
+								},
+								"description": "Esta llamada devuelve un fichaje que tiene el mismo id que el id proporcionado."
+							},
+							"response": [
+								{
+									"name": "Leer un fichero",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}:{{port}}/v1/fichajes/3",
+											"host": [
+												"{{url}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"v1",
+												"fichajes",
+												"3"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "112"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"70-WEP4B8LkRGBU34LIaNinLyfo9RU\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 27 Mar 2024 07:34:44 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"fichajeId\": 3,\n    \"trabajadorId\": 2,\n    \"fecha_hora\": null,\n    \"direccion\": \"test\",\n    \"longitud\": null,\n    \"latitud\": null,\n    \"tipo\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "Update fichaje",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fichajeId\": 1,\r\n    \"direccion\": \"cambio la direccion\",\r\n    \"tipo\": \"ENTRADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/fichajes/1",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"fichajes",
+										"1"
+									]
+								},
+								"description": "En esta llamada, se envía un objeto JSON en el cuerpo que especifica cómo debe quedar el registro. Solo se modificarán los atributos con valores presentes en el objeto proporcionado."
+							},
+							"response": []
+						},
+						{
+							"name": "Delete fichaje",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/fichajes/4",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"fichajes",
+										"4"
+									]
+								},
+								"description": "Eliminar el registro cuyo fichajeId coincida con el ID proporcionado. Si no existe ningún registro con esa coincidencia, la operación de eliminación no tendrá efecto."
+							},
+							"response": [
+								{
+									"name": "Delete fichaje",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}:{{port}}/v1/fichajes/4",
+											"host": [
+												"{{url}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"v1",
+												"fichajes",
+												"4"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "107"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"6b-iYl2FPAhL164xwLCsFX/n6DEygI\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 27 Mar 2024 07:35:58 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"fieldCount\": 0,\n    \"affectedRows\": 1,\n    \"insertId\": 0,\n    \"info\": \"\",\n    \"serverStatus\": 2,\n    \"warningStatus\": 0,\n    \"changedRows\": 0\n}"
+								}
+							]
+						},
+						{
+							"name": "leer fichajes un trabajador",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Get Server time",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					],
+					"description": "Contiene las llamadas para el manejo de fichajes"
+				},
+				{
+					"name": "Grupos_trabajadores",
+					"item": [
+						{
+							"name": "Crear grupos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Ingenieros\",\r\n    \"empresaId\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/grupos_trabajadores",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"grupos_trabajadores"
+									]
+								},
+								"description": "Esta llamada es para crear grupos. Se controla que el nombre se incluye en la petición. En en ejemplo hemos pasado el nombre y el id de la empresa para crear el grupo"
+							},
+							"response": []
+						},
+						{
+							"name": "Leer todos los grupos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/grupos_trabajadores",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"grupos_trabajadores"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "leer un grupo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/grupos_trabajadores/1",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"grupos_trabajadores",
+										"1"
+									]
+								},
+								"description": "Con esta llamada se lee el grupo que hemos pasado su id. Además devuelve un array de trabajadores que están apuntados a este mismo grupo."
+							},
+							"response": []
+						},
+						{
+							"name": "Update grupo",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"grupoId\": 1,\r\n    \"nombre\": \"Informaticos\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/grupos_trabajadores/1",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"grupos_trabajadores",
+										"1"
+									]
+								},
+								"description": "Con esta llamada le pasamos el objeto json con propiedades que queremos cambiar del grupo. En este caso de ejemplo cambiamos el nombre del grupo."
+							},
+							"response": []
+						},
+						{
+							"name": "Delete un grupo",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/grupos_trabajadores/1",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"grupos_trabajadores",
+										"1"
+									]
+								},
+								"description": "Eliminiamos el grupo que queremos con el id de grupo que le pasamos."
+							},
+							"response": []
+						}
+					],
+					"description": "Contiene las llamadas para el manejo de grupos de trabajadores."
+				},
+				{
+					"name": "Version",
+					"item": [
+						{
+							"name": "Consultar versión",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/v1/version",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"version"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Es para consultar la versión de la aplicación"
+				}
+			],
+			"description": "Contiene las llamadas de la versión 1"
+		}
+	]
+}
