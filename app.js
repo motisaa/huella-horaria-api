@@ -12,7 +12,6 @@ import fichajesRouter from './api/fichajes/fichajes_controlador.js';
 import gruposRouter from './api/grupos/grupos_controlador.js';
 import versionRouter from './api/version/version_controlador.js';
 import loginRouter from './api/login/login_controlador.js'
-import auth from './api/middleware/auth.js';
 
 // FIXED de chatGPT: utilizamo el módulo path de Node.js para obtener el directorio actual
 // porque variable interno __dirname no está definido en el ámbito de los módulos de ES.
