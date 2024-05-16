@@ -113,6 +113,7 @@ router.get('/serverTime/date', async (req, res, next) => {
     let fecha = new Date()
     try {
         res.json({
+            fechaUtc: fecha,
             fecha: moment(fecha).format('YYYY-MM-DD HH:mm')
         });
     } catch (error) {
