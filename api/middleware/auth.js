@@ -8,7 +8,7 @@ async function auth(req, res, next) {
         return res.json({ message: "API key no proporcionada" });
     }
 
-    // Leer la API key de la empresa
+    // Leer la API key de header de la solicitud HTTP.
     const apiKey = req.header("api-key");
     //clave maestra
     if (apiKey === process.env.API_KEY) {
