@@ -20,6 +20,13 @@ const __dirname = path.resolve()
 const appServer = {
     createServer: () => {
         winston.info('crear servidor');
+        /*
+        Habilitamos CORS para todas las rutas, aunque hay rutas donde no es necesario
+        y funcionarán sin CORS.
+        CORS evita que desde otro sitio hagan llamadas y inyecciones y es por la seguridad que lo usamos
+        CORS es una política que permite o restringe cómo un navegador web puede 
+        solicitar recursos desde un servidor diferente al servidor que sirve la página web principal
+        */
         app.use(cors());
         
         /*
